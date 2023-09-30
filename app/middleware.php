@@ -7,4 +7,5 @@ return [
     // \think\middleware\LoadLangPack::class,
     // Session初始化
     // \think\middleware\SessionInit::class
+	// 'check',//使用了别名,参见config/middleware.php
 ];

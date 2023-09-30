@@ -7,11 +7,52 @@ class Index extends BaseController
 {
     public function index()
     {
-        return '<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family: "Century Gothic","Microsoft yahei"; color: #333;font-size:18px;} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 42px }</style><div style="padding: 24px 48px;"> <h1>:) </h1><p> ThinkPHP V' . \think\facade\App::version() . '<br/><span style="font-size:30px;">14载初心不改 - 你值得信赖的PHP框架</span></p><span style="font-size:25px;">[ V6.0 版本由 <a href="https://www.yisu.com/" target="yisu">亿速云</a> 独家赞助发布 ]</span></div><script type="text/javascript" src="https://tajs.qq.com/stats?sId=64890268" charset="UTF-8"></script><script type="text/javascript" src="https://e.topthink.com/Public/static/client.js"></script><think id="ee9b1aa918103c4fc"></think>';
+        return 'Version' . \think\facade\App::version();
     }
 
     public function hello($name = 'ThinkPHP6')
     {
         return 'hello,' . $name;
+    }
+
+    public function hehe(){
+        $encrypt = $this->_getsmsParams();
+        $decrypt = $this->_decodesmsParams($encrypt);
+        echo $encrypt;
+        echo '<p>';
+        echo $decrypt;
+    }
+
+    private function _getsmsParams($date = null, $key = 'abcdefg123456hi0') {
+        if(!isset($date))
+            $date =  date('Y-m-d H:i:s');
+        $smsParams = openssl_encrypt($date, 'AES-128-ECB', $key);
+        return $smsParams;
+    }
+
+    private function _decodesmsParams($encrypt, $key = 'abcdefg123456hi0') {
+        return openssl_decrypt($encrypt, 'AES-128-ECB', $key);
+    }
+
+    public function DESencrypt($data, $key, $bs64 = true){
+
+        $ret = openssl_encrypt($data, 'DES-ECB', $key);
+        if(!$bs64)
+            $ret = bin2hex(base64_decode($ret));
+        return $ret;
+    }
+
+    public function DESdecrypt($data, $key, $bs64=true){
+
+        if(!$bs64){
+            $data = hex2bin($data);
+            $data = base64_encode($data);
+        }
+
+        return openssl_decrypt($data, 'DES-ECB', $key);
+    }
+    public function test1(){
+        $ret = ['a'=>1, 'b'=>2];
+        return json($ret);
     }
 }

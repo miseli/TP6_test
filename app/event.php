@@ -2,6 +2,7 @@
 // 事件定义文件
 return [
     'bind'      => [
+		'UserLogin' => 'app\event\UserLogin',
     ],
 
     'listen'    => [
