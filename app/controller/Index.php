@@ -55,4 +55,21 @@ class Index extends BaseController
         $ret = ['a'=>1, 'b'=>2];
         return json($ret);
     }
+
+    public function signature_test($value='')
+    {
+        $signatureText = "John Doe";
+        $imageWidth = 200;
+        $imageHeight = 100;
+
+        $signatureImage = imagecreatetruecolor($imageWidth, $imageHeight);
+        $backgroundColor = imagecolorallocate($signatureImage, 255, 255, 255);
+        $textColor = imagecolorallocate($signatureImage, 0, 0, 0);
+
+        imagefill($signatureImage, 0, 0, $backgroundColor);
+        imagettftext($signatureImage, 20, 0, 10, 50, $textColor, "c:/windows/fonts/arial.ttf", $signatureText);
+
+        imagepng($signatureImage, "G:/www/signature.png");
+        imagedestroy($signatureImage);
+    }
 }

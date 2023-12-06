@@ -35,7 +35,7 @@ class Excel
         $ts = intval(_GET('ts'));
         $riqi = date("Y 年 m 月 d 日", $ts);
 
-        $dict = ['','B11','B12','D3','D4','D5','D6','D7','D8','D9','D10','D11','D12'];
+        $dict = ['','B12','B13','D3','D4','D5','D6','D7','D8','D9','D10','D11','D12'];
         $templatefile = realpath('.') . '/公司风险研判签到表模板.xlsx';
         $reader = new Reader\Xlsx();
         $spreadsheet = $reader->load($templatefile);
@@ -46,12 +46,14 @@ class Excel
         // // 样式设置
         // $sheet->getDefaultColumnDimension()->setWidth(12);
         $without = _GET('n');
-        foreach ($without as $item) {
-            // 填写内容
-            $sheet->setCellValue($dict[$item], '无作业');
-            // 打斜杠
-            // $sheet->getStyle($dict[$item])->getBorders()->setDiagonalDirection(Borders::DIAGONAL_UP);
-            // $sheet->getStyle($dict[$item])->getBorders()->getDiagonal()->setBorderStyle('thin');
+        if(!is_null($without)){
+            foreach ($without as $item) {
+                // 填写内容
+                $sheet->setCellValue($dict[$item], '无作业');
+                // 打斜杠
+                // $sheet->getStyle($dict[$item])->getBorders()->setDiagonalDirection(Borders::DIAGONAL_UP);
+                // $sheet->getStyle($dict[$item])->getBorders()->getDiagonal()->setBorderStyle('thin');
+            }
         }
 
         $filename = _GET('outname');
