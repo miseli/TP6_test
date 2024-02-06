@@ -1,3 +1,9 @@
+## 更新说明
+
+* 注意php版本与phpoffice/phpword和phpoffice/phpspreadsheet之间的版本兼容
+* 具体版本要求请参阅[`phpoffice`——phpword](https://github.com/PHPOffice/PhpSpreadsheet) | [`phpoffice`——phpspreadsheet](https://github.com/PHPOffice/PHPWord)
+
+
 ThinkPHP 6.0
 ===============
 

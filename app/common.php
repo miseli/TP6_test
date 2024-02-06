@@ -1,5 +1,15 @@
 <?php
 // 应用公共文件
+
+require('phpqrcode/qrlib.php');
+
+if (!defined('MY_FILE')) { // 定义一个常量来标记已经被包含的文件
+    define('MY_FILE', true);
+    
+    // 此处放置需要包含的文件路径或内容
+	
+
+
 ini_set("display_errors", "On"); //打开错误提示
 ini_set("error_reporting", E_ALL); //显示所有错误
 /**
@@ -40,6 +50,10 @@ function debugger(...$a) {
     var_dump($a);
     echo "</pre>";
     echo '</div>';
+}
+
+
+
 }
 
 // func [] at line [] in file []
