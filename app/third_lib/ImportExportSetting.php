@@ -93,6 +93,12 @@ class ImportExportSetting
             case 'docx':
                 header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
                 break;
+            case 'png':
+                header("Content-Type: image/png");
+                break;
+            case 'jpg':
+                header("Content-Type: image/jpeg");
+                break;
             default:
                 break;
         }
@@ -101,6 +107,41 @@ class ImportExportSetting
         ob_end_clean();//清楚缓存区
         // 激活浏览器窗口
         header("Content-Disposition:attachment;filename=$fileName.$suffix");
+        //缓存控制
+        header("Cache-Control:max-age=0");
+    }
+	
+    // 预览
+    public static function view_set($fileName, $suffix)
+    {
+        // 设置返回头
+        switch ($suffix) {
+            case 'xlsx':
+                header("Content-Type:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                break;
+            case 'xls':
+                header("Content-Type:application/vnd.ms-excel");
+                break;
+            case 'doc':
+                header("Content-Type: application/msword");
+                break;
+            case 'docx':
+                header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+                break;
+            case 'png':
+                header("Content-Type: image/png");
+                break;
+            case 'jpg':
+                header("Content-Type: image/jpeg");
+                break;
+            default:
+                break;
+        }
+        $type = ucfirst($suffix);
+
+        ob_end_clean();//清楚缓存区
+        // 激活浏览器窗口
+        header("Content-Disposition:inline;filename=$fileName.$suffix");
         //缓存控制
         header("Cache-Control:max-age=0");
     }
