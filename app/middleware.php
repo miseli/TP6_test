@@ -9,5 +9,5 @@ return [
     // \think\middleware\SessionInit::class
 	// 'check',//使用了别名,参见config/middleware.php
     // 跨域请求的内置中间件
-    \think\middleware\AllowCrossdomain::class
+    // \think\middleware\AllowCrossdomain::class
 ];

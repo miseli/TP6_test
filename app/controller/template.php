@@ -10,7 +10,7 @@ use think\Config;
 use think\facade\Route;
 use app\service\CaptchaGenerater;
 
-class template extends BaseController
+class Template extends BaseController
 {
     public function captcha($config='')
     {

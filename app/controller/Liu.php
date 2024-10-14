@@ -11,11 +11,11 @@ class Liu
         return 'Version' . \think\facade\App::version();
     }
 
-    public function asdf($name = 'ThinkPHP6')
+    public function createQRcode($name = 'http://192.168.0.110:8010/123.html')
     {
         // Header("Content-type: image/png");
         header("Content-Type: image/png; charset=utf-8");
-        echo QRcode::png('some othertext 1234');
+        echo QRcode::png($name);
         exit;
         // return 'hello,' . $name;
     }

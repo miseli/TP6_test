@@ -27,8 +27,8 @@
         "firebase/php-jwt": "^6.2",
         "topthink/think-view": "^1.0",
         "topthink/think-helper": "^3.1",
-        "phpoffice/phpword": "^1.1",
-        "phpoffice/phpspreadsheet": "^1.19"
+        "phpoffice/phpspreadsheet": "^1.25",
+        "phpoffice/phpword": "^1.1"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
