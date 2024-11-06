@@ -14,4 +14,5 @@ Route::get('think', function () {
     return 'hello,ThinkPHP6!';
 });
 
+// https://cube123.cn/tp6/public/hello/name
 Route::get('hello/:name', 'index/hello');

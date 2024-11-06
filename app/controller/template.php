@@ -23,8 +23,9 @@ class Template extends BaseController
 
     public function captcha_img($config='')
     {
-        $src = Route::buildUrl('/captcha' . ($config ? "/{$config}" : ''));
-        return "<img src='{$src}' onclick='this.src=\"{$src}?\"+Math.random();' />";
+        // 相当于请求上面的captcha函数
+        $src = Route::buildUrl('/template/captcha' . ($config ? "/{$config}" : ''));
+        return "<img src='{$src}' onclick=this.src='{$src}?'+Math.random(); />";
         // return '<img src="'.$src.'" onclick="this.src=\''.$src.'\'+Date.now()"/>';
     }
     /**
@@ -32,17 +33,18 @@ class Template extends BaseController
      *
      * @return \think\Response
      */
-    public function index()
+    public function index($config='')
     {
         // $imgsrc = captcha_src('verify');
+        // 相当于请求上面的captcha函数
         $config = 'verify';
-        $imgsrc = Route::buildUrl('/captcha' . ($config ? "/{$config}" : ''));
+        $imgsrc = Route::buildUrl('/template/captcha' . ($config ? "/{$config}" : ''));
 
         // 模板变量赋值
         View::assign('name','ThinkPHP');
         View::assign('email','thinkphp@qq.com');
-        // 或者批量赋值
 
+        // 或者批量赋值
         View::assign([
             'name'  => 'Cube',
             'email' => '123456@cube.com',
@@ -50,7 +52,8 @@ class Template extends BaseController
         ]);
 
 
-        // 模板输出
+        // 模板输出,1index在tp6/view/template/1index.html
+        // 默认输出tp6/view/控制器/方法名.html
         return View::fetch('1index');
     }
 

@@ -1,10 +1,13 @@
 <?php
+declare (strict_types = 1);
+
 namespace app\controller;
 
 use app\BaseController;
-
 use think\Request;
-
+use think\facade\View;
+use think\Config;
+use think\facade\Route;
 
 function getRandomStringOrProvided($str = null) {
     // 主语
@@ -34,9 +37,69 @@ function getRandomStringOrProvided($str = null) {
 
 class Index extends BaseController
 {
-    public function index()
+    // http://127.0.0.1:8010/tp6/public/index/index/config/123
+    public function index($config='default')
     {
-        return 'Version' . \think\facade\App::version();
+        $ret = 'Version' . \think\facade\App::version() . ' ' . $config;
+        return $ret;
+    }
+
+    //https://....../tp6/public/index/index2
+    public function index2()
+    {
+        View::assign('list', [
+            [
+                'name'  => 'OA办公平台',
+                'url' => 'https://oa.fire5.us.kg/',
+                'user' => '',
+                'pwd' => ''
+            ],
+            [
+                'name'  => '综合管理平台',
+                'url' => 'https://zonghe.fire5.us.kg/',
+                'user' => '20421',
+                'pwd' => 'A@135246'
+            ],
+            [
+                'name'  => '安全管理平台',
+                'url' => 'https://anquan.fire5.us.kg/',
+                'user' => '20790',
+                'pwd' => 'h0094600'
+            ],
+            [
+                'name'  => 'HTTP文件管理平台',
+                'url' => 'https://file.fire5.us.kg/',
+                'user' => 'LIU',
+                'pwd' => ''
+            ],
+            // [
+            //     'name'  => 'FTP文件管理平台',
+            //     'url' => 'ftp://ftp.fire5.us.kg:2121',
+            //     'user' => 'LIU',
+            //     'pwd' => ''
+            // ],
+            [
+                'name'  => 'web管理平台',
+                'url' => 'https://web.fire5.us.kg/',
+                'user' => '',
+                'pwd' => ''
+            ],
+            [
+                'name'  => '中国人事考试网',
+                'url' => 'http://www.cpta.com.cn/',
+                'user' => 'zhuanshil',
+                'pwd' => '000000Qb'
+            ],
+            [
+                'name'  => '中注册会计师',
+                'url' => 'https://cpaexam.cicpa.org.cn/default.shtml',
+                'user' => '',
+                'pwd' => ''
+            ],
+        ]);
+
+        return View::fetch();
+        // return View::fetch('template/2index');
     }
 
     public function excelwordmiddle(Request $request){
