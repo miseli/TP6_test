@@ -9,6 +9,8 @@ use think\facade\View;
 use think\Config;
 use think\facade\Route;
 
+// require  __DIR__.'/../../../common/common.php';
+
 function getRandomStringOrProvided($str = null) {
     // 主语
     $subjects = ["李柯燚","苏佳男","于冬博","郝维东","水库浪子","WD"];
@@ -37,11 +39,77 @@ function getRandomStringOrProvided($str = null) {
 
 class Index extends BaseController
 {
+
+
+    /**
+     * 生成一个随机名字(当前的年月日时分秒+随机数字+后缀名)
+     * @return string 文件的新名字
+     */
+    protected function randName()
+    {
+        // 1, 生成文件的时间部分
+        $name = date('YmdHis');
+        // 2, 加上随机产生的6位数
+        $str = '0987653214';
+        for ($i = 0; $i < 6; $i++) {
+            $name .= $str[mt_rand(0, strlen($str) - 1)];
+        }
+        return $name;
+    }
+
+
+    /**
+     * 实现文件上传
+     * @param object $file 上传的文件的对象信息
+     * @param string $path 文件上传的目录
+     * @return string|array 上传失败返回原因 成功返回文件的新名字数组
+     */
+    public function move($file, $path)
+    {
+
+        try {
+            // 判断逻辑错误
+            $maxSize = 80 * 1024;
+            if ($file->getSize() > $maxSize) {
+                return '上传失败，超出了文件限制的大小！';
+            }
+
+            // 判断文件类型
+            $ext = strtolower($file->getOriginalExtension());
+            if (!in_array($ext, ['png', 'jpg', 'jpeg', 'pdf', 'webp'], true)) {
+                // 非法的文件类型
+                return '上传的图片的类型不正确，允许的类型有：' . implode(',', $this->allowed_ext);
+            }
+
+            // 文件原名称(带扩展类型)
+            $originalName = $file->getOriginalName();
+
+            // 得到文件随机名称和相应文件夹
+            $newname = $this->randName();
+            $newname = $newname . '.' . $ext;
+            $filePath = $this->rootPath . $path . '/' . date('Ymd') . '/';
+
+            $file->move($filePath, $newname);
+            return ['path' => $filePath . $newname];
+        } catch (\Exception $e) {
+            return $e->getMessage() . $e->getLine();
+        }
+    }
+
+
     // http://127.0.0.1:8010/tp6/public/index/index/config/123
     public function index($config='default')
     {
         $ret = 'Version' . \think\facade\App::version() . ' ' . $config;
         return $ret;
+    }
+
+    public function reportwork(){
+        if(Request()->isPost()){
+            return 'post';
+        }else{
+            return View::fetch();
+        }
     }
 
     //https://....../tp6/public/index/index2

@@ -16,7 +16,7 @@ class Word
         $riqi = intval(_GET('riqi'));
         $filename = '乙烯分公司风险研判'.date('m.d',$riqi);
         $riqi = date("Y 年 m 月 d 日", $riqi);
-        $ktch = _GET('ktch');
+
         $count = $workdata[0]+$workdata[1]+$workdata[2]+$workdata[3]+$workdata[4]+$workdata[5]+$workdata[6]+$workdata[7]+$workdata[8]+$workdata[9]+$workdata[10];
 
         if ($count==0) {
@@ -25,6 +25,10 @@ class Word
             $template = new TemplateProcessor(realpath('.') . '/乙烯分公司风险研判模板.docx');
         }
 
+        // phpword 1.3.0版本有bug。详见https://github.com/PHPOffice/PHPWord/pull/2748
+        // phpword 1.4.0中对此bug做出修复,修复方法如下:
+        // PHPWord/src/PhpWord/TemplateProcessor.php文件中
+        // return $subject ? Text::toUTF8($subject) : ''; >>> return (null !== $subject) ? Text::toUTF8($subject) : '';
         $template->setValue('riqi', $riqi);
         $template->setValue('teji', $workdata[0]);
         $template->setValue('yiji', $workdata[1]);
@@ -37,7 +41,7 @@ class Word
         $template->setValue('dt', $workdata[8]);
         $template->setValue('dl', $workdata[9]);
         $template->setValue('wu', $workdata[10]);
-        $template->setValue('ktch', $ktch);
+
         \app\third_lib\ImportExportSetting::export_set($filename, 'docx');
         // 数据流
         $template->saveAs("php://output");
