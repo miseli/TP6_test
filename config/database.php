@@ -57,7 +57,14 @@ return [
             // 开启字段缓存
             'fields_cache'    => false,
         ],
-
+        'sqlite' => [
+            // 数据库类型
+            'type' => 'sqlite',
+            // 数据名
+            'database' => env('sqlite.database', ''),
+            // 监听sql
+            'trigger_sql' => true
+        ]
         // 更多的数据库配置信息
     ],
 ];
